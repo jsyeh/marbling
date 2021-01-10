@@ -11,11 +11,6 @@ ArrayList PVector
 在按下mouse的時候, 先把 mouseX,mouseY 當成圓心存起來, 同時暫時以 ```ellipse()``` 來畫這個長大中的圓。
 
 在放開mouse的時候, 將現在這個圓的圓周上的頂點 密集的建立好 (希望頂點距離為 1 pixel)
-其中for迴圈裡, 每次增加的角度 2 * PI / (dt * PI) 不容易被理解 --- 它的意思是, 這個圓的周長是 2 * PI * 半徑, 也就是 dt * PI, 因為 dt 是直徑。所以如果希望周長的頂點間相鄰 1 pixel, 就要把 2 * PI 的角度, 除以圓周長 (dt * PI), 也就是每個頂點間的角度差 2 * PI / (dt * PI)。
-```Processing
-for(float angle=0; angle<PI*2; angle+=2*PI/(dt*PI)){
-```
-
 
 Processing Code
 ---------------
@@ -60,8 +55,8 @@ void mouseReleased(){ //放開mouse時, 把整個圓的圓周上的頂點, 逐�
 }
 ```
 
-Appendix (額外講解)
-------------------
+More Detail (額外講解)
+--------------------
 關於 ```ArrayList<ArrayList<PVector> curves``` 我們從小到大, 慢慢介紹。
 
 - ```PVector``` 是 Processing 的向量class, 這個(小)資料結構裡面, 有3個分量 x, y, z 
@@ -81,6 +76,7 @@ Appendix (額外講解)
 關於 for(迴圈) 與 ArrayList 的配合
 - ArrayList 是 Java 特別的資料結構, 又叫 container, 裡面可以放其他的資料結構 or 物件
 - for(迴圈) 特別對這類的資料結構, 設計新的語法
+- 下方是簡單的例子。而程式碼 void draw() 裡面, 也用這個技巧, 來畫出 curves 裡, 每段 curve 上面的頂點
 
 ```Processing
 ArrayList<PVector> curve = new ArrayList<PVector>(); //宣告 curve, 它是個 ArrayList 資料結構, 裡面有許多 PVector
@@ -89,5 +85,24 @@ curve.add( new PVector(200, 100) ); //add 第2個頂點
 curve.add( new PVector(300, 100) ); //add 第3個頂點
 for( PVector pt : curve ){ //這種 for迴圈的寫法, 可以讓 pt 依序會是 curve 裡面的每一個頂點
   //你便可以在迴圈裡使用 pt 這個頂點
+}
+```
+
+關於 mouseReleased() 裡, 如何建立 ArrayList<PVector> curve ? 
+- for迴圈裡, 每次增加的角度 2 * PI / (dt * PI) 不容易被理解 --- 它的意思是, 這個圓的周長是 2 * PI * 半徑, 也就是 dt * PI, 因為 dt 是直徑。所以如果希望周長的頂點間相鄰 1 pixel, 就要把 2 * PI 的角度, 除以圓周長 (dt * PI), 也就是每個頂點間的角度差 2 * PI / (dt * PI)。
+```Processing
+for(float angle=0; angle<PI*2; angle+=2*PI/(dt*PI)){
+```
+
+```Processing
+void mouseReleased(){ //放開mouse時, 把整個圓的圓周上的頂點, 逐一加入 curve 裡, 完成資料結構
+  int dt=(millis()-pressT)/10; //繪圖時,算出時間差dt=現在-pressT, 它的1/10當成直徑
+  ArrayList<PVector> curve = curves.get(curves.size()-1); //最出 curves 的最後一條 curve, 裡面只存圓心座標
+  PVector center = curve.get(0); //之前按下去的點(圓心)存在 curve 裡, 等下for(迴圈)要用
+  curve.remove(0); //把原本的圓心刪掉, 下面for(迴圈)準備改加入圓周上的點
+  for(float angle=0; angle<PI*2; angle+=2*PI/(dt*PI)){ //這裡非常密集,讓圓周上頂點距離很短,相鄰1 pixel
+    PVector pt = new PVector(center.x+dt/2*cos(angle), center.y+dt/2*sin(angle)); //圓周上頂點用 sin() cos() 算出來
+    curve.add(pt);
+  }
 }
 ```
