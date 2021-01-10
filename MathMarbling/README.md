@@ -11,6 +11,8 @@ Steps (步驟)
 
 - Step00_ManyEllipse 
   - 利用許多重覆的白色圓形, 疊在在黑色畫布上, 還沒任何資料結構
+- Step01_ArrayList_PVector
+  - 修改資料結構, 利用兩層 ArrayList 做出 Step00 的效果
 
 References (參考文獻)
 ---------------------
