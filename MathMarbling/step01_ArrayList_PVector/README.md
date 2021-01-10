@@ -33,7 +33,7 @@ void draw(){
   for( ArrayList<PVector> curve : curves ){ //這裡程式較無效率
     beginShape(); //逐一從 curves 裡, 取出 圓形的 curve 來畫 
     for( PVector pt : curve ){ //從圓形的 curve 裡, 取出 頂點pt
-      stroke(255,0,0); ellipse(pt.x, pt.y, 1,1);
+      vertex(pt.x, pt.y);
     }
     endShape();
   } //上面是完整的資料結構
