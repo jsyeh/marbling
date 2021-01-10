@@ -27,9 +27,9 @@ void mousePressed(){ //按下去時, 建新的 curve, 同時暫時把圓心放�
 }
 void mouseReleased(){ //放開mouse時, 把整個圓的圓周上的頂點, 逐一加入 curve 裡, 完成資料結構
   int dt=(millis()-pressT)/10; //繪圖時,算出時間差dt=現在-pressT, 它的1/10當成直徑
-  ArrayList<PVector> curve = curves.get(curves.size()-1);
-  PVector center = curve.get(0); //之前把按下去的點存在這裡
-  curve.remove(0); //把原本的圓心刪掉, 下面準備加入圓周上的點
+  ArrayList<PVector> curve = curves.get(curves.size()-1); //最出 curves 的最後一條 curve, 裡面只存圓心座標
+  PVector center = curve.get(0); //之前按下去的點(圓心)存在 curve 裡, 等下for(迴圈)要用
+  curve.remove(0); //把原本的圓心刪掉, 下面for(迴圈)準備改加入圓周上的點
   for(float angle=0; angle<PI*2; angle+=2*PI/(dt*PI)){ //這裡非常密集,讓圓周上頂點距離很短,相鄰1 pixel
     PVector pt = new PVector(center.x+dt/2*cos(angle), center.y+dt/2*sin(angle)); //圓周上頂點用 sin() cos() 算出來
     curve.add(pt);
