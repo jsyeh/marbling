@@ -89,11 +89,14 @@ for( PVector pt : curve ){ //這種 for迴圈的寫法, 可以讓 pt 依序會�
 ```
 
 關於 mouseReleased() 裡, 如何建立 ArrayList<PVector> curve ? 
-- for迴圈裡, 每次增加的角度 2 * PI / (dt * PI) 不容易被理解 --- 它的意思是, 這個圓的周長是 2 * PI * 半徑, 也就是 dt * PI, 因為 dt 是直徑。所以如果希望周長的頂點間相鄰 1 pixel, 就要把 2 * PI 的角度, 除以圓周長 (dt * PI), 也就是每個頂點間的角度差 2 * PI / (dt * PI)。
 ```Processing
 for(float angle=0; angle<PI*2; angle+=2*PI/(dt*PI)){
 ```
-
+- for迴圈裡, 每次增加的角度 2 * PI / (dt * PI) 不容易被理解 
+  - 它的意思是, 每個頂點, 都會對應一個角度 angle
+  - 這個圓的周長是 2 * PI * 半徑, 也就是 dt * PI, 因為 dt 是直徑。
+  - 所以如果希望周長的頂點間相鄰 1 pixel, 就要把 2 * PI 的角度, 除以圓周長 (dt * PI), 也就是每個頂點間的角度差 2 * PI / (dt * PI)
+                               
 ```Processing
 void mouseReleased(){ //放開mouse時, 把整個圓的圓周上的頂點, 逐一加入 curve 裡, 完成資料結構
   int dt=(millis()-pressT)/10; //繪圖時,算出時間差dt=現在-pressT, 它的1/10當成直徑
