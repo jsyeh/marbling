@@ -13,6 +13,19 @@ Steps (步驟)
   - 利用許多重覆的白色圓形, 疊在在黑色畫布上, 還沒任何資料結構
 - Step01_ArrayList_PVector
   - 修改資料結構, 利用兩層 ArrayList 做出 Step00 的效果
+- Step02_DropInkFunction
+  - 實作 Mathematical Marbling 3.1.1 InkDropFunction 滴墨效果 公式(1) 
+
+- TODO: 圖(1)切換deformation、
+- TODO: 3.1.2. TineLineFunction 公式(2) 
+- TODO: 3.1.3. WavePatternFunction 公式(3) 
+- TODO: 3.1.4. CircularTineLineFunction 公式(4) 
+- TODO: 3.1.5. VortexPatternFunction
+- TODO: 3.2. SharpCorner 公式(5)
+- TODO: 3.3. VectorImageOutput 
+- TODO: (推薦色)調色盤選色
+- TODO: 多解析度問題(Surface Pro會太小/太慢)
+
 
 References (參考文獻)
 ---------------------
