@@ -15,8 +15,7 @@ Steps (步驟)
   - 修改資料結構, 利用兩層 ArrayList 做出 Step00 的效果
 - Step02_DropInkFunction
   - 實作 Mathematical Marbling 3.1.1 InkDropFunction 滴墨效果 公式(1) 
-
-- TODO: 圖(1)切換deformation、
+  - 可用 bSimpleInkDrop 切換是否使用滴墨的公式(1)/是否切換deformation
 - TODO: 3.1.2. TineLineFunction 公式(2) 
 - TODO: 3.1.3. WavePatternFunction 公式(3) 
 - TODO: 3.1.4. CircularTineLineFunction 公式(4) 

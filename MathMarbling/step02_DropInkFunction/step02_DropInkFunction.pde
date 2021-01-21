@@ -1,5 +1,6 @@
 ArrayList<ArrayList<PVector>> curves; //許多頂點構成curve, 許多curve構成curves
 int pressT, pressT2; //pressT: 按下mouse時的時間, pressT2: 滴墨時前一次位移的時間, 之後可合併
+boolean bSimpleInkDrop=false;//切換簡單滴墨(快) or 公式(1)滴墨(慢,deformation)
 void setup(){
   size(512,512);
   curves = new ArrayList<ArrayList<PVector>>();
@@ -22,7 +23,8 @@ void draw(){
     ellipse(center.x, center.y, dt, dt);
     
     float dt2=sqrt((millis()-pressT2)); //墨量與時間正比, 直徑需要開根號, pressT2: 滴墨時前一次位移的時間
-    eq1_inkDrop(center.x, center.y, dt2/2); //在滴墨時, 依照墨量(半徑) 持續修改其他頂點位置
+    if(bSimpleInkDrop) simple_inkDrop(center.x, center.y, dt2/2);
+    else eq1_inkDrop(center.x, center.y, dt2/2); //在滴墨時, 依照墨量(半徑) 持續修改其他頂點位置
     pressT2=millis(); //這裡同時更新時間, 以便算出正確的墨量
   }
 }
@@ -43,7 +45,7 @@ void mouseReleased(){ //放開mouse時, 把整個圓的圓周上的頂點, 逐�
   }
 }
 //論文裡提到, 滴墨有2種狀況: 一種要變形(慢), 一種不變形(快)
-void eq1_inkDrop(float cx, float cy, float r){ //滴墨的變形公式 equation 1 
+void eq1_inkDrop(float cx, float cy, float r){ //滴墨的變形公式 equation 1
   for( ArrayList<PVector> curve : curves ){
     if(curve.size()<=1) continue;//避開(最後一個curve) 圓心的點, 避免公式出錯
     for( PVector pt : curve ){
@@ -53,4 +55,7 @@ void eq1_inkDrop(float cx, float cy, float r){ //滴墨的變形公式 equation 
       pt.y = cy + (pt.y-cy)*scale; //依移動比例, 改變現有頂點的位置
     }
   }
+}
+void simple_inkDrop(float cx, float cy, float r){
+  //如Fig. 1(f) 所示, 不使用公式(1)變型, just simple ink drop 
 }
