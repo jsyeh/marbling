@@ -41,16 +41,45 @@ int function=0; //0: Ink Drop, 1: Ink Drop Simple, 2: Tine Line Pattern
 void keyPressed(){ //利用鍵盤來切換功能
   if(key=='0') function=0; //Ink Drop
   if(key=='1') function=1; //Ink Drop Simple
-  if(key=='2'){
-    function=2; //Tine Line Pattern
-    curves2=new ArrayList<ArrayList<PVector>>(); //backup curves to curves2
-    for( ArrayList<PVector> curve : curves ){
-      ArrayList<PVector> now = new ArrayList<PVector>();
-      for( PVector pt : curve ){
-        now.add(new PVector(pt.x, pt.y));
+  if(key=='2') function=2; //Tine Line Pattern
+  if(key==ESC && function==2){//Undo Tine Line Pattern
+    key=0;
+    restoreFromCurve2();//TODO: 應該要加一下警告介面, 確認後再 restore比較好
+  }
+}
+void restoreFromCurve2(){
+  if(curves2!=null && curves!=null){
+    for(int i=0; i<curves2.size(); i++){
+      ArrayList<PVector> curve2=curves2.get(i);
+      ArrayList<PVector> curve =curves.get(i);
+      for(int j=0; j<curve2.size(); j++){
+        PVector pt2=curve2.get(j);
+        PVector pt =curve.get(j);
+        pt.x=pt2.x;
+        pt.y=pt2.y;
       }
-      curves2.add(now);
     }
+  }
+}
+void backupToCurves2(){
+  //delete curves2 first
+  if(curves2!=null){
+    for(int i=curves2.size()-1; i>=0; i--){
+      ArrayList<PVector> curve2=curves2.get(i);
+      for(int j=curve2.size()-1; j>=0; j--){
+        curve2.remove(j);
+      }
+      curves2.remove(i);
+    }
+  }else curves2=new ArrayList<ArrayList<PVector>>(); //backup curves to curves2
+  
+  //backup curves to curves2
+  for( ArrayList<PVector> curve : curves ){
+    ArrayList<PVector> now = new ArrayList<PVector>();
+    for( PVector pt : curve ){
+      now.add(new PVector(pt.x, pt.y));
+    }
+    curves2.add(now);
   }
 }
 void mousePressed(){ //按下去時, 建新的 curve, 同時暫時把圓心放在裡面
@@ -59,6 +88,9 @@ void mousePressed(){ //按下去時, 建新的 curve, 同時暫時把圓心放�
     curve.add( new PVector(mouseX,mouseY) );
     curves.add(curve); //暫時把圓心放在裡面
     pressT2=pressT=millis(); //記錄按下去的時間
+  }
+  if(function==2){
+    backupToCurves2();
   }
 }
 void mouseDragged(){
@@ -82,6 +114,7 @@ void mouseReleased(){
     //ask Yes or No 
     //remove all curves2, and accept curves and curves
     curves.remove(curves.size()-1);
+    curves2.remove(curves2.size()-1);
   }
 }
 //論文裡提到, 滴墨有2種狀況: 一種要變形(慢), 一種不變形(快)

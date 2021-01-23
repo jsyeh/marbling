@@ -16,7 +16,13 @@ Steps (步驟)
 - Step02_DropInkFunction
   - 實作 Mathematical Marbling 3.1.1 InkDropFunction 滴墨效果 公式(1) 
   - 可用 bSimpleInkDrop 切換是否使用滴墨的公式(1)/是否切換deformation
-- TODO: 3.1.2. TineLineFunction 公式(2) 
+- Step03_TineLineFunction 
+  - 實作 Mathematical Marbling 3.1.2 TineLineFunction 拉線效果 公式(2) 
+  - function=0: 使用滴墨的公式(1)/是否切換deformation, function=2: 簡單滴墨, function=2: 使用拉線的公式(2)
+  - 使用keyboard切換function功能
+  - 在 function=2時, 每次 mousePressed 時 備份 curves, mouseReleased 時, 暫一個段落。
+  - 如果 TineLineFunction 的結果不滿意, 可以按 ESC鍵, 回到備份的 curves2 (但ESC在其他功能會關閉, 需要保護一下)
+  
 - TODO: 3.1.3. WavePatternFunction 公式(3) 
 - TODO: 3.1.4. CircularTineLineFunction 公式(4) 
 - TODO: 3.1.5. VortexPatternFunction
