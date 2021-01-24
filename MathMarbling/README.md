@@ -22,8 +22,10 @@ Steps (步驟)
   - 使用keyboard切換function功能
   - 在 function=2時, 每次 mousePressed 時 備份 curves, mouseReleased 時, 暫一個段落。
   - 如果 TineLineFunction 的結果不滿意, 可以按 ESC鍵, 回到備份的 curves2 (但ESC在其他功能會關閉, 需要保護一下)
-  
-- TODO: 3.1.3. WavePatternFunction 公式(3) 
+- Step04_wavyFunction
+  - 實作 Mathematical Marbling 3.1.3 WavePatternFunction Sine波的公式(3) 
+  - keyboard 及 mouse 的效果, 與 step03 類似
+
 - TODO: 3.1.4. CircularTineLineFunction 公式(4) 
 - TODO: 3.1.5. VortexPatternFunction
 - TODO: 3.2. SharpCorner 公式(5)
