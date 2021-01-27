@@ -30,9 +30,12 @@ Steps (步驟)
   - 實作 Mathematical Marbling 3.1.4 CircularTineLineFunction 圓形拉動(旋轉)公式(4)
   - mousePressed時會決定圓心, mouseDragged時會有虛擬的圓, 讓人可以看到參考半徑r。如果mouseDragged是逆時針繞時, 就逆時針增加 alpha; 如果順時針繞時, 就順時針減少 alpha
   - 有 UNDO 能力
+- Step05_VortexPatternFunction
+  - 實作 Mathematical Marbling 3.1.5 旋渦效果(Vortex Pattern Function) 
+  - 程式模仿 step05_CircularTineLine
+  - mousePressed時會決定圓心, mouseDragged時會有虛擬的圓心。轉的效果放大一些, 同時讓 mouseDragged 單純左右、上下拖曳 也會有部分轉動的效果。
 
-- TODO: 3.1.5. VortexPatternFunction
-- TODO: 3.2. SharpCorner 公式(5)
+- TODO: 3.2. SharpCorner 公式(5) 因 Vortex 效果時, 發現中間有錯亂的狀況, 所以需要 ShaprCorner, 新增更多的 curve boundary 頂點 (pixel-wise)
 - TODO: 3.3. VectorImageOutput
 - TODO: (推薦色)調色盤選色
 - TODO: 多解析度問題(Surface Pro會太小/太慢)
