@@ -10,8 +10,10 @@ Math Marbling Step 07
 
 現在的狀況, 會爆增頂點數量。所以會越來越慢。
 
-TODO: 將要再挑戰 「curves 先變 curves2 及 curvesBackup」 接下來只要有 bFar 太遠時, 就把 「curves 再變 curves2」希望能減少亂拉的現象。
+挑戰成功: 「curves 先變 curves2 及 curvesBackup」 接下來只要有 bFar 太遠時, 就把 「curves 再變 curves2」希望能減少亂拉的現象。
 最後如果 ESC放棄時, 把 「curvesBackup 改回 curves」
+
+TODO: 挑戰 如果距離太長, 就持續內插, 成功了!!
 
 Sharp Contours
 --------------

@@ -62,12 +62,41 @@ void keyPressed(){ //利用鍵盤來切換功能
   if(key=='3') function=3; //Wavy Pattern
   if(key=='4') function=4; //Circular Tine Line Pattern
   if(key=='5') function=5; //Vortex Pattern
-  if(key==ESC && (function==2||function==3||function==4||function==5)){//Undo (for Tine Line Pattern or Wavy Pattern)
+  if(key==ESC && (function==2||function==3)){//Undo (for Tine Line Pattern or Wavy Pattern)
     key=0;
-    restoreFromCurve2();//TODO: 應該要加一下警告介面, 確認後再 restore比較好
+    restoreFromCurves2();//TODO: 應該要加一下警告介面, 確認後再 restore比較好
+  }else if(key==ESC && (function==4||function==5)){
+    key=0;
+    restoreFromCurvesBackup();
   }
 }
-void restoreFromCurve2(){
+void restoreFromCurvesBackup(){
+  //if(curvesBackup!=null && curves!=null){//兩個會不一樣大。這樣不能直接 one-by-one resture
+  //  ListIterator li=curves.listIterator(0); //要改成: 把 curves 全部清空, 接著再 copy 給 curves
+  //}
+  if(curves!=null){
+    ListIterator li = curves.listIterator();
+    while(li.hasNext()){
+      LinkedList<PVector> curve = (LinkedList<PVector>)li.next();
+      ListIterator lili=curve.listIterator();
+      while(lili.hasNext()){
+        lili.next();
+        lili.remove();
+      }
+      li.remove();
+    }
+  }else curves=new LinkedList<LinkedList<PVector>>();
+  
+  //backup curves to curves2
+  for( LinkedList<PVector> curve : curvesBackup ){
+    LinkedList<PVector> now = new LinkedList<PVector>();
+    for( PVector pt : curve ){
+      now.add(new PVector(pt.x, pt.y));
+    }
+    curves.add(now);
+  }
+}
+void restoreFromCurves2(){
   if(curves2!=null && curves!=null){
     ListIterator li=curves.listIterator(0);
     ListIterator li2=curves2.listIterator(0);
@@ -85,6 +114,29 @@ void restoreFromCurve2(){
     }
   }
 }
+void backupToCurvesBackup(){
+  if(curvesBackup!=null){
+    ListIterator li = curvesBackup.listIterator();
+    while(li.hasNext()){
+      LinkedList<PVector> curve = (LinkedList<PVector>)li.next();
+      ListIterator lili=curve.listIterator();
+      while(lili.hasNext()){
+        lili.next();
+        lili.remove();
+      }
+      li.remove();
+    }
+  }else curvesBackup=new LinkedList<LinkedList<PVector>>();
+  
+  //backup curves to curves2
+  for( LinkedList<PVector> curve : curves ){
+    LinkedList<PVector> now = new LinkedList<PVector>();
+    for( PVector pt : curve ){
+      now.add(new PVector(pt.x, pt.y));
+    }
+    curvesBackup.add(now);
+  }
+}
 void backupToCurves2(){
   //delete curves2 first //可能會很慢
   if(curves2!=null){
@@ -93,8 +145,10 @@ void backupToCurves2(){
       LinkedList<PVector> curve = (LinkedList<PVector>)li.next();
       ListIterator lili=curve.listIterator();
       while(lili.hasNext()){
+        lili.next();
         lili.remove();
       }
+      li.remove();
     }
   }else curves2=new LinkedList<LinkedList<PVector>>();
   
@@ -116,6 +170,9 @@ void mousePressed(){ //按下去時, 建新的 curve, 同時暫時把圓心放�
   }
   if(function==2 || function==3 || function==4 || function==5){
     backupToCurves2();
+  }
+  if(function==4 || function==5){
+    backupToCurvesBackup();
   }
   if(function==4 || function==5) alpha4=0; //function 4 & function 5 共用 alpha4
 }
@@ -154,7 +211,7 @@ void mouseDragged(){
     //println(alpha4);
     float lambda=8;
     eq4_circularTineLine(C, r, alpha4, lambda);
-    smoothSharp();
+    if(smoothSharp()>10) backupToCurves2();//will be very very slow
     
     stroke(255,0,0);
     ellipse(C.x, C.y, r*2, r*2); //畫出對應的圓
@@ -166,17 +223,19 @@ void mouseDragged(){
     alpha4 += r*diffAngle(C, pmouseX,pmouseY, mouseX,mouseY);//我想到 alpha可以與路徑的張角有關, 放大r倍,讓效果顯著
     alpha4 += (mouseX-pmouseX);//在滑鼠上下移動、左右移動時, 也應該有些旋轉的回饋
     alpha4 += (mouseY-pmouseY);
-    println(alpha4);
+    //println(alpha4);
     float lambda=8;
     eq5_vortexPattern(C, alpha4, lambda);
-    smoothSharp();
+    if(smoothSharp()>5) backupToCurves2();//will be very very slow
     
     stroke(255,0,0);  noFill();
     ellipse(C.x, C.y, alpha4,alpha4); //畫出對應的圓
     stroke(0);
   }
 }
-void smoothSharp(){
+float smoothSharp(){//return the max distance
+  int count=0;
+  float maxDist=0;
   ListIterator li = curves.listIterator(0);
   ListIterator li2 = curves2.listIterator(0);
   while(li.hasNext()){
@@ -189,10 +248,13 @@ void smoothSharp(){
     PVector pt21=(PVector)lili2.next();
     PVector pt22=null;
     while(lili.hasNext()){
+      count++;
       boolean bFar=false;
       pt12=(PVector)lili.next();
       lili.previous();//這個回跳, 是為了下一行 add()能在正確的位置插入
-      if( dist(pt12.x, pt12.y, pt11.x, pt11.y)>3 ) bFar=true;
+      float d=dist(pt12.x, pt12.y, pt11.x, pt11.y);
+      if( d>maxDist) maxDist=d;
+      if( d>5 ) bFar=true;
       if(bFar){
         lili.add( new PVector( (pt11.x+pt12.x)/2, (pt11.y+pt12.y)/2) );
       }
@@ -206,6 +268,8 @@ void smoothSharp(){
       pt21=(PVector)lili2.next();
     }
   }
+  println("count:",count);
+  return maxDist;
 }
 float diffAngle(PVector C, float x1, float y1, float x2, float y2){
   if(dist(C.x,C.y, x1,y1)<10) return 0; //如果離圓心太近的移動,先不算數
