@@ -35,10 +35,18 @@ Steps (步驟)
   - 程式模仿 step05_CircularTineLine
   - mousePressed時會決定圓心, mouseDragged時會有虛擬的圓心。轉的效果放大一些, 同時讓 mouseDragged 單純左右、上下拖曳 也會有部分轉動的效果。
 - Step07_SharpContours
-  - TODO: 3.2. SharpCorner 公式(5) 因 Vortex 效果時, 發現中間有錯亂的狀況, 所以需要 ShaprCorner, 新增更多的 curve boundary 頂點 (pixel-wise)
-- TODO: 3.3. VectorImageOutput
+  - 實作 Mathematical Marbling 3.2. SharpCorner 公式(5) 因 Vortex 效果時, 發現中間有錯亂的狀況, 所以需要 ShaprCorner, 新增更多的 curve boundary 頂點 (pixel-wise)
+- Step08_Zoom
+  - 利用 mouse 的左鍵來 Zoom In, mouse 的右鍵來 Zoom Out, 其中 zooming 的中心點, 就是 mouse點擊時的位置
+
 - TODO: (推薦色)調色盤選色
 - TODO: 多解析度問題(Surface Pro會太小/太慢)
+- TODO: 3.3. VectorImageOutput
+- TODO: (挑戰 如果距離太長, 就持續內插) 改成距離太長, 就將 curves 再變 curves2 成功了!! 不會再爆增 頂點了!
+- TODO: step01 等, 因為 P3D 會有怪線, 可能也需要 smoothSharp()功能, 但它們還沒有 curves2 可以用
+- TODO: 接下來, step07 限制, 不要讓 Vortex 太誇張就好了! (同時更新
+- TODO: 接下來, 把 README.md 改得清楚一點 (尤其是 step07)
+
 
 
 References (參考文獻)
