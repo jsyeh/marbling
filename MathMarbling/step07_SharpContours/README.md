@@ -13,7 +13,7 @@ Math Marbling Step 07
 挑戰成功: 「curves 先變 curves2 及 curvesBackup」 接下來只要有 bFar 太遠時, 就把 「curves 再變 curves2」希望能減少亂拉的現象。
 最後如果 ESC放棄時, 把 「curvesBackup 改回 curves」
 
-TODO: 挑戰 如果距離太長, 就持續內插, 成功了!!
+(挑戰 如果距離太長, 就持續內插) 改成距離太長, 就將 curves 再變 curves2 成功了!! 不會再爆增頂點! 效果很好。
 
 Sharp Contours
 --------------
