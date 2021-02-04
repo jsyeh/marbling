@@ -7,10 +7,10 @@ Intoduction (簡介)
 
 Steps (步驟)
 ------------
-首先先建立程式的框架, 使用 ArrayList<PVector> 來建立很長的資料結構(裡面有許多邊界的點), 之後便可以用這個資料結構, 來描繪出墨水的邊界。
+先建立程式的框架, 使用 ArrayList<PVector> 建立很長的資料結構(裡面存許多邊界的點), 之後可用此資料結構, 來描繪出墨水的邊界。
 
 - Step00_ManyEllipse 
-  - 利用許多重覆的白色圓形, 疊在在黑色畫布上, 還沒任何資料結構
+  - 利用許多重覆的白色圓形, 疊在黑色畫布上, 還沒任何資料結構
 - Step01_ArrayList_PVector
   - 修改資料結構, 利用兩層 ArrayList 做出 Step00 的效果
 - Step02_DropInkFunction
@@ -18,9 +18,9 @@ Steps (步驟)
   - 可用 bSimpleInkDrop 切換是否使用滴墨的公式(1)/是否切換deformation
 - Step03_TineLineFunction
   - 實作 Mathematical Marbling 3.1.2 TineLineFunction 拉線效果 公式(2)
-  - function=0: 使用滴墨的公式(1)/是否切換deformation, function=2: 簡單滴墨, function=2: 使用拉線的公式(2)
+  - function=0: 使用滴墨的公式(1)deformation, function=1: 簡單滴墨, function=2: 使用拉線的公式(2)
   - 使用keyboard切換function功能
-  - 在 function=2時, 每次 mousePressed 時 備份 curves, mouseReleased 時, 暫一個段落。
+  - 在 function=2 時, 每次 mousePressed 備份 curves, mouseReleased 暫停一個段落。
   - 如果 TineLineFunction 的結果不滿意, 可以按 ESC鍵, 回到備份的 curves2 (但ESC在其他功能會關閉, 需要保護一下)
 - Step04_WavyFunction
   - 實作 Mathematical Marbling 3.1.3 WavePatternFunction Sine波的公式(3)
