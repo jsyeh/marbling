@@ -44,9 +44,10 @@ Steps (步驟)
 - TODO: 3.3. VectorImageOutput
 - TODO: (挑戰 如果距離太長, 就持續內插) 改成距離太長, 就將 curves 再變 curves2 成功了!! 不會再爆增 頂點了!
 - TODO: step01 等, 因為 P3D 會有怪線, 可能也需要 smoothSharp()功能, 但它們還沒有 curves2 可以用
-- TODO: 接下來, step07 限制, 不要讓 Vortex 太誇張就好了! (同時更新
+- TODO: 接下來, step07 限制, 不要讓 Vortex 太誇張就好了! (同時更新之前的step06 等...)
 - TODO: 接下來, 把 README.md 改得清楚一點 (尤其是 step07)
-
+- TODO: 為每個版本, 增加對應的成果圖, 方便快速理解。或是成果的 GIF 動圖, 方便理解「功能的效果」
+- TODO: 清晰的圖 vs. 2018年舊版會糊掉的圖(好像也有賣點)
 
 
 References (參考文獻)
