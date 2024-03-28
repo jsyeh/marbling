@@ -168,7 +168,7 @@ void backupToCurves2(){
     curves2.add(now);
   }
 }
-void mousePressed()
+void mousePressed(){
   if(function==0 || function==1 || function==2 || function==3 || function==4 || function==5){
     LinkedList<PVector> curve = new LinkedList<PVector>();
     curve.add( new PVector(mouseX,mouseY) );
